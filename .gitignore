@@ -1,5 +1,6 @@
 __pycache__
-*.txt
+OutroSongLyrics.txt
+portal_lyrics.txt
 *.dat
 *.mp3
 *.wav
