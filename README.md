@@ -1,3 +1,7 @@
+# Still Alive
+
+Play Still Alive and Want You Gone right in your console :)
+
 ## To run
 
 ### The easy way
