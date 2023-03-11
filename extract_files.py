@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import vpk
 
 from common import portal_2, portal_root, vpk_path
