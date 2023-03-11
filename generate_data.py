@@ -1,19 +1,25 @@
 import struct
+from typing import Optional
 
+from common import portal_2
 
-print('Reading portal_lyrics.txt')
-translations: dict[str, str] = {}
-with open('portal_lyrics.txt') as fp:
-    for line in fp:
-        parts = line.strip().split(' \t', 1)
-        translations[parts[0][1:-1]] = parts[1][1:-1]
+translations: Optional[dict[str, str]]
+if not portal_2:
+    print('Reading portal_lyrics.txt')
+    translations = {}
+    with open('portal_lyrics.txt') as fp:
+        for line in fp:
+            parts = line.strip().split(' \t', 1)
+            translations[parts[0][1:-1]] = parts[1][1:-1]
+else:
+    translations = None
 
 
 print('Reading OutroSongLyrics.txt and writing still_alive.dat')
 with open('still_alive.dat', 'wb') as fp_out:
     with open('OutroSongLyrics.txt') as fp_in:
         for line in fp_in:
-            line = line.strip().split('\t')[0][1:-1]
+            line = line.strip()[1:-len('" "CreditsOutroText"')]
             rbracket_index = line.index(']')
             time = float(line[1:rbracket_index])
             line = line[rbracket_index + 1:]
@@ -27,7 +33,7 @@ with open('still_alive.dat', 'wb') as fp_out:
                 if line[0] == '*':
                     line = line[1:]
                     newline = ''
-                if line[0] == '#':
+                if line[0] == '#' and translations is not None:
                     line = translations[line[1:]]
                 elif line == '^':
                     line = '\n'
