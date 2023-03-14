@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import os
+import subprocess
 import sys
 import time
 
@@ -14,6 +15,18 @@ with vpk.open(vpk_path) as vf:
     with vf[f'sound/music/{song_name}'] as fp_in:
         fp_in.save(song_name)
 
+
+def begin_play_sound() -> None:
+    try:
+        playsound.playsound(song_name, block=False)
+    except NotImplementedError:
+        subprocess.Popen(
+            ['ffplay', '-nodisp', '-autoexit', song_name],
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL
+        )
+
+
 played_sound = False
 
 target_time = time.perf_counter()
@@ -22,7 +35,7 @@ os.system(clear_command)
 for (delay, char) in still_alive_data_reader.read_chars():
     if portal_2 and char == '2' and not played_sound:
         played_sound = True
-        playsound.playsound(song_name, block=False)
+        begin_play_sound()
     if char == '\0':
         os.system(clear_command)
     else:
@@ -33,7 +46,7 @@ for (delay, char) in still_alive_data_reader.read_chars():
         pass
     if not portal_2 and delay > 2.5 and not played_sound:
         played_sound = True
-        playsound.playsound(song_name, block=False)
+        begin_play_sound()
 
 print()
 if portal_2:
