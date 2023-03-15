@@ -25,5 +25,10 @@ else:
         print("The location of Steam couldn't be determined automatically. Please specify the location manually.")
         sys.exit(1)
 
-portal_root = f'{steam_common}/Portal{" 2" * portal_2}/portal{"2" * portal_2}'
+game_name = f'Portal{" 2" * portal_2}'
+portal_root = f'{steam_common}/{game_name}/portal{"2" * portal_2}'
 vpk_path = f'{portal_root}/{"pak01" if portal_2 else "portal_pak"}_dir.vpk'
+
+if not os.path.exists(portal_root):
+    print(game_name, 'does not exist. Please install', game_name, 'to use this program.')
+    sys.exit(1)
