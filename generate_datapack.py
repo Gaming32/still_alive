@@ -9,7 +9,7 @@ import vpk
 import still_alive_data_reader
 from common import portal_2, vpk_path
 
-LINE_COUNT = 20 if portal_2 else 24
+LINE_COUNT = 20 if portal_2 else 23
 
 print('Extracting song')
 song_name = 'portal2_want_you_gone.wav' if portal_2 else 'portal_still_alive.mp3'
